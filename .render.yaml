@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: dgg-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URL
+        value: tu_cadena_de_conexion_mongo_remota
