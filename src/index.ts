@@ -1,30 +1,17 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
+import path from 'path';
 
-import gameRoutes from './routes/games';
-import userRoutes from './routes/users';
-import missionRoutes from './routes/missions';
 const app = express();
-const port = process.env.PORT || 4000;
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/game';
+const port = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
+// Servir contenido estático
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Rutas separadas
-app.use('/games', gameRoutes);
-app.use('/users', userRoutes);
-app.use('/missions', missionRoutes);
+// Ruta raíz que devuelve el HTML
+app.get('/', (_, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
-// Conexión y arranque
-mongoose
-  .connect(mongoUrl)
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Server is listening on port ${port}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Error connecting to MongoDB:', err.message);
-  });
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
+});
