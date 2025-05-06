@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "format": "prettier --write .",
-    "start": "node index.js"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
